@@ -8,7 +8,7 @@ public class ArrayDeque<T> implements Deque<T>{
     private int front;
     private int rear;
     public ArrayDeque(){
-        maxSize = 1000;
+        maxSize = 10;
         ArrayList = (T[]) new Object[maxSize];
         front = 0;
         rear = 0;
@@ -68,7 +68,7 @@ public class ArrayDeque<T> implements Deque<T>{
     @Override
     public T get(int index) {
         if(index >= this.size()) return null;
-        int target = front + index;
+        int target = modMaxSize(front + index);
         return ArrayList[target];
     }
 
@@ -86,8 +86,9 @@ public class ArrayDeque<T> implements Deque<T>{
     }
     private void resize(){
         T[] newArrayList = (T[]) new Object[maxSize*2];
-        for (int i=0; i<maxSize-1; i++){
-            newArrayList[i] = ArrayList[front+i];
+        for (int i=0; i < maxSize-1; i++){
+            int current = modMaxSize(front + i);
+            newArrayList[i] = ArrayList[current];
         }
         front = 0;
         rear = maxSize-1;

@@ -1,8 +1,11 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
+import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 /** Performs some basic linked list tests. */
 public class LinkedListDequeTest {
@@ -13,9 +16,6 @@ public class LinkedListDequeTest {
      *
      * && is the "and" operation. */
     public void addIsEmptySizeTest() {
-
-        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-
         LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
 
 		assertTrue("A newly initialized LLDeque should be empty", lld1.isEmpty());
@@ -40,9 +40,6 @@ public class LinkedListDequeTest {
     @Test
     /** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
     public void addRemoveTest() {
-
-        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
 		// should be empty
 		assertTrue("lld1 should be empty upon initialization", lld1.isEmpty());
@@ -83,8 +80,6 @@ public class LinkedListDequeTest {
     @Test
     /* Check if you can create LinkedListDeques with different parameterized types*/
     public void multipleParamTest() {
-
-
         LinkedListDeque<String>  lld1 = new LinkedListDeque<String>();
         LinkedListDeque<Double>  lld2 = new LinkedListDeque<Double>();
         LinkedListDeque<Boolean> lld3 = new LinkedListDeque<Boolean>();
@@ -102,9 +97,6 @@ public class LinkedListDequeTest {
     @Test
     /* check if null is return when removing from an empty LinkedListDeque. */
     public void emptyNullReturnTest() {
-
-        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
 
         boolean passed1 = false;
@@ -118,9 +110,6 @@ public class LinkedListDequeTest {
     @Test
     /* Add large number of elements to deque; check if order is correct. */
     public void bigLLDequeTest() {
-
-        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
         for (int i = 0; i < 1000000; i++) {
             lld1.addLast(i);
@@ -132,6 +121,46 @@ public class LinkedListDequeTest {
 
         for (double i = 999999; i > 500000; i--) {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
+        }
+    }
+
+    @Test
+    public void addDelete(){
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        for (int i=0; i<10000; i++){
+            lld1.addLast(i);
+            assertEquals("Should have the same value", i, (double) lld1.get(0), 0.0);
+            lld1.removeFirst();
+        }
+    }
+
+    @Test
+    public void RandomTest() {
+        Deque<Integer> Correct_deque = new ArrayDeque<>();
+        deque.LinkedListDeque<Integer> Test_deque = new deque.LinkedListDeque<>();
+
+        for (int i = 0; i < 5000000; i++) {
+            int operationNumber = StdRandom.uniform(0, 7);
+            if (operationNumber == 0) {
+                int randVal = StdRandom.uniform(0, 100);
+                Test_deque.addFirst(randVal);
+                Correct_deque.addFirst(randVal);
+            } else if (operationNumber == 1) {
+                int randVal = StdRandom.uniform(0, 100);
+                Test_deque.addLast(randVal);
+                Correct_deque.addLast(randVal);
+            } else if (operationNumber == 2) {
+                assertEquals(Correct_deque.isEmpty(), Test_deque.isEmpty());
+            } else if (operationNumber == 3) {
+                assertEquals(Correct_deque.size(), Test_deque.size());
+            } else if (operationNumber == 4 && !Correct_deque.isEmpty()) {
+                assertEquals(Correct_deque.removeFirst(), Test_deque.removeFirst());
+            } else if (operationNumber == 5 && !Correct_deque.isEmpty()) {
+                assertEquals(Correct_deque.removeLast(), Test_deque.removeLast());
+            } else if (operationNumber == 6 && !Correct_deque.isEmpty()) {
+                assertEquals(Correct_deque.getFirst(), Test_deque.get(0));
+                assertEquals(Correct_deque.getLast(), Test_deque.get(Correct_deque.size()-1));
+            }
         }
     }
 }

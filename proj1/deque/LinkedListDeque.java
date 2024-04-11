@@ -87,7 +87,7 @@ public class LinkedListDeque<T> implements Deque<T>{
     public T get(int index){
         if (index >= count) return null; //Error: no such element
         TNode<T> targetNode = head;
-        for (int i=0; i<index; i++){
+        for (int i=0; i< index+1; i++){
             targetNode = targetNode.next;
         }
         return targetNode.item;

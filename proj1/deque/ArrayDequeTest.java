@@ -31,7 +31,6 @@ public class ArrayDequeTest {
 
         System.out.println("Printing out deque: ");
         lld1.printDeque();
-
     }
 
     @Test
@@ -45,10 +44,10 @@ public class ArrayDequeTest {
         // should not be empty
         assertFalse("lld1 should contain 1 item", lld1.isEmpty());
 
-        lld1.removeFirst();
+        int x = lld1.removeFirst();
         // should be empty
         assertTrue("lld1 should be empty after removal", lld1.isEmpty());
-
+        assertEquals(10,x);
     }
 
     @Test
@@ -68,7 +67,9 @@ public class ArrayDequeTest {
         errorMsg += "  actual size() returned 0\n";
 
         assertEquals(errorMsg, 0, size);
-
+        lld1.addLast(10);
+        lld1.removeFirst();
+        assertEquals(lld1.size(),0);
     }
 
     @Test
@@ -85,7 +86,6 @@ public class ArrayDequeTest {
         String s = lld1.removeFirst();
         double d = lld2.removeFirst();
         boolean b = lld3.removeFirst();
-
     }
 
     @Test
@@ -97,8 +97,6 @@ public class ArrayDequeTest {
         boolean passed2 = false;
         assertEquals("Should return null when removeFirst is called on an empty Deque,", null, lld1.removeFirst());
         assertEquals("Should return null when removeLast is called on an empty Deque,", null, lld1.removeLast());
-
-
     }
 
     @Test
